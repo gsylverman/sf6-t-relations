@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Card;
 use App\Entity\User;
 use App\Repository\UserRepository;
+use App\Services\FetcherService;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -52,4 +53,13 @@ class TestController extends AbstractController
             'data' => $cards,
         ]);
     }
+
+    #[Route('/test-service', name: 'test_service')]
+    public function testService(FetcherService $fetcherService): Response
+    {
+        return $this->render('test/test-service.html.twig', [
+            'getUrl' => $fetcherService->get('https://pro-api.coinmarketcap.com'),
+        ]);
+    }
+
 }
