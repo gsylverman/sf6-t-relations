@@ -2,6 +2,8 @@
 
     namespace App\DTO;
 
+    use JetBrains\PhpStorm\Internal\TentativeType;
+
     class SomeDto implements IBaseSomeDto
     {
         private ?string $name;
@@ -57,4 +59,8 @@
         }
 
 
+        public function jsonSerialize()
+        {
+            return get_object_vars($this);
+        }
     }

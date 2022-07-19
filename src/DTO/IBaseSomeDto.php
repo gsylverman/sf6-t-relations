@@ -2,7 +2,7 @@
 
     namespace App\DTO;
 
-    interface IBaseSomeDto
+    interface IBaseSomeDto extends \JsonSerializable
     {
 
     }
