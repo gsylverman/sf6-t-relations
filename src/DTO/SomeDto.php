@@ -2,9 +2,7 @@
 
     namespace App\DTO;
 
-    use JetBrains\PhpStorm\Internal\TentativeType;
-
-    class SomeDto implements IBaseSomeDto
+    class SomeDto implements SomeDtoInterface
     {
         private ?string $name;
         private ?string $description;

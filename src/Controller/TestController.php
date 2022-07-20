@@ -6,6 +6,7 @@ use App\DTO\SomeDto;
 use App\Entity\Card;
 use App\Entity\User;
 use App\Repository\UserRepository;
+use App\Service\SomeModifierInterface;
 use App\Services\FetcherService;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
@@ -70,23 +71,16 @@ class TestController extends AbstractController
     }
 
     #[Route('/serialize', name: 'serialize', methods: ["POST"])]
-    public function serializeTest(Request $request): Response
+    public function serializeTest(Request $request, SomeModifierInterface $someModifier): Response
     {
         // Deserialize json data into Dto object
         /** @var SomeDto $someDto */
        $someDto = $this->serializer->deserialize($request->getContent(), SomeDto::class, 'json');
 
          // do something with the object
+        $modifiedDto = $someModifier->apply($someDto);
 
-        // Serialize again and send back
-        $someDto->setName("Some new Name");
-        $someDto->setPrice(100);
-
-
-
-//        dd($this->serializer);
-
-        return new JsonResponse($someDto, 200);
+        return new JsonResponse($modifiedDto, 200);
     }
 
 }
