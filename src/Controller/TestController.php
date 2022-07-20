@@ -65,9 +65,13 @@ class TestController extends AbstractController
     public function testService(FetcherService $fetcherService): Response
     {
 
-        return $this->render('test/test-service.html.twig', [
-            'getUrl' => $fetcherService->get('https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'),
-        ]);
+//        return $this->render('test/test-service.html.twig', [
+//            'getUrl' => $fetcherService->get('https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'),
+//        ]);
+
+        $data = $fetcherService->get('https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/listings/latest');
+
+        return new JsonResponse($data, 200);
     }
 
     #[Route('/serialize', name: 'serialize', methods: ["POST"])]
